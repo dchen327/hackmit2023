@@ -278,7 +278,7 @@ function App() {
 
       <div>
         {matches.length == 0 ? (
-          <p>No results found, did you mean 'fridge'?</p>
+          <p>No results found, did you mean 'Fridge'?</p>
         ) : (
           <h1 className="subtitle">Results:</h1>
         )}

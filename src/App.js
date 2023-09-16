@@ -170,13 +170,17 @@ function App() {
   const handleSearch = () => {
     // You can implement your search functionality here
     console.log('Searching for:', searchTerm);
-    setSearchTerm("");
   };
 
   // search filters
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
+  const [showFilter, setShowFilter] = useState(false);
+
+  const toggleShowFilter = () => {
+    setShowFilter(!showFilter);
+  }
 
 
   // // interested button functionality 
@@ -193,7 +197,7 @@ function App() {
       <h1 className="title">Summer Saver</h1>
       <label className="label">Search by item name</label>
       <div className="field has-addons">
-        
+
         <div className="control">
           <input className="input" type="text" placeholder="Search" onChange={handleSearchChange} />
         </div>
@@ -202,45 +206,77 @@ function App() {
             Search
           </button>
         </div>
-      </div>
-      <div className="field">
-        <label className="label">Start and end date</label>
-        <div className="control columns">
-          <div className="column">
-            <input
-              className="input"
-              type="date"
-              value={startDate}
-              onChange={e => setStartDate(e.target.value)}
-            />
-          </div>
-          <div className="column">
-            <input
-              className="input"
-              type="date"
-              value={endDate}
-              onChange={e => setEndDate(e.target.value)}
-            />
-          </div>
+        <div className="control">
+          <button className="button is-secondary ml-2" onClick={toggleShowFilter}>
+            {showFilter ? "Hide filters :(" : "Show filters!"}
+          </button>
         </div>
       </div>
 
-      <div className="field">
-        <label className="label">Maximum Price</label>
-        <div className="control">
-          <input
-            className="input"
-            type="number"
-            value={maxPrice}
-            onChange={e => setMaxPrice(e.target.value)}
-          />
+      {showFilter && (
+        <div className="columns">
+          <div className="column">
+            <div className="field">
+              <label className="label">Start Date</label>
+              <div className="control">
+                <input
+                  className="input"
+                  type="date"
+                  value={startDate}
+                  onChange={e => setStartDate(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="column">
+            <div className="field">
+              <label className="label">End Date</label>
+              <div className="control">
+                <input
+                  className="input"
+                  type="date"
+                  value={endDate}
+                  onChange={e => setEndDate(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="column">
+            <div className="field">
+              <label className="label">Maximum Price</label>
+              <div className="control">
+                <input
+                  className="input"
+                  type="number"
+                  value={maxPrice}
+                  onChange={e => setMaxPrice(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="column is-flex-align-self-flex-end">
+            <div className="field">
+            <label className="label has-text-white">`</label>
+              <div className="control">
+                <button
+                  className="button is-primary"
+                  onClick={handleSearch}
+                >
+                  Apply Filters
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      
+      )}
+
+
+
 
       {/* <div className="container"> */}
 
       <div>
+        <h1 className="subtitle">Results for {searchTerm}</h1>
         {supply.map((item) => (
           <div key={item.id} className="box">
             <div className="columns">

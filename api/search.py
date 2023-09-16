@@ -35,14 +35,26 @@ college_summer_items = [
 def generate_fake_supply_info():
     supply_info = {
         'itemName': random.choice(college_summer_items),
-        'startDate': fake.date_between(start_date='-120d', end_date='-110d'),  # Random date within the last 30 days and next 30 days
-        'endDate': fake.date_between(start_date='-30d', end_date='-10d'),  # Random date between 31 and 90 days from now
+        'startDate': fake.date_between(start_date=datetime(2023, 5, 1), end_date=datetime(2023, 5, 31)),  # Random date within the last 30 days and next 30 days
+        'endDate': fake.date_between(start_date=datetime(2023, 8, 1), end_date=datetime(2023, 8, 27)),  # Random date between 31 and 90 days from now
         'price': 5 * fake.random_int(min=1, max=50),  # Random price between 10 and 200
         'pictures': [fake.file_name(extension='jpg') for _ in range(fake.random_int(min=0, max=5))],  # Random list of picture filenames
         'contact': fake.email(),  # Fake email address
         'addlNotes': fake.text()  # Fake additional notes
     }
     return supply_info
+
+def convert_date(date_str):
+    return datetime.strptime(date_str, "%m/%d/%Y").date()
+
+def convert_matches(matches):
+    # Convert date objects to strings with the specified format
+    for match in matches:
+        match['startDate'] = match['startDate'].strftime("%m/%d/%Y")
+        match['endDate'] = match['endDate'].strftime("%m/%d/%Y")
+    
+    return matches
+
 
 class handler(BaseHTTPRequestHandler):
 
@@ -61,35 +73,23 @@ class handler(BaseHTTPRequestHandler):
 
     @staticmethod
     def search(params):
-        print(params)
-        demand_info = {
-            'itemName': 'TV',
-            # when you're free to lend item
-            'startDate': datetime.strptime('5/15/2023', "%m/%d/%Y"),
-            # when you need item back
-            'endDate': datetime.strptime('8/12/2023', "%m/%d/%Y"),
-        }
+        item_name = params['itemName'] or 'Television'
+        start_date = convert_date(params['startDate'] or '5/15/2023')
+        end_date = convert_date(params['endDate'] or '8/15/2023')
+        max_price = int(params['maxPrice'] or 500)
 
-        supply_info = {
-            'itemName': 'TV',  # what you have
-            # when you're free to lend item
-            'startDate': datetime.strptime('5/15/2023', "%m/%d/%Y"),
-            # when you need item back
-            'endDate': datetime.strptime('8/12/2023', "%m/%d/%Y"),
-            'price': 50,  # how many dollars to charge
-            'pictures': [],  # list of picture filenames (hardcode)
-            'contact': 'bobsmith@college.edu',
-            'addlNotes': '',  # additional notes in text
-        }
-
-        supply_info_list = [generate_fake_supply_info() for _ in range(3)]
-
-        # Convert date objects to strings with the specified format
+        supply_info_list = [generate_fake_supply_info() for _ in range(100)]
+        
+        matches = []
         for supply_info in supply_info_list:
-            supply_info['startDate'] = supply_info['startDate'].strftime("%m/%d/%Y")
-            supply_info['endDate'] = supply_info['endDate'].strftime("%m/%d/%Y")
+            if supply_info['itemName'] == item_name and \
+                supply_info['price'] <= max_price and \
+                abs((supply_info['startDate'] - start_date).days) <= 7 and \
+                abs((supply_info['endDate'] - end_date).days) <= 7:
+                matches.append(supply_info)
             
-        return {'itemMatches': supply_info_list}
+        print(matches)
+        return {'itemMatches': convert_matches(matches)}
 
 if __name__ == '__main__':
     print(handler.search({}))

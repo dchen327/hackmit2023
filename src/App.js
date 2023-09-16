@@ -133,13 +133,39 @@ function App() {
   //   // TODO: Implement hint functionality
   //   console.log("Hint clicked");
   // };
-
+  const iso8601String = "2023-09-16T12:30:00";
+  const jsDate = new Date(iso8601String);
+  const supply = [
+    {
+      'itemName': 'TV',
+      'startDate': jsDate,
+      'endDate': jsDate,
+      'price': 50,
+      'pictures': [],
+      'contact': 'test@college.edu',
+      'addlNotes': '',
+    },
+    {
+      'itemName': 'TV',
+      'startDate': jsDate,
+      'endDate': jsDate,
+      'price': 50,
+      'pictures': [],
+      'contact': 'test@college.edu',
+      'addlNotes': '',
+    },
+  ]
   const products = [
     { id: 1, name: 'Product 1', price: 19.99 },
     { id: 2, name: 'Product 2', price: 29.99 },
     { id: 3, name: 'Product 3', price: 39.99 },
     // Add more products as needed
   ];
+
+  function formatDate(inputDate) {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return inputDate.toLocaleDateString(undefined, options);
+  }
 
   // search functionality 
   const [searchTerm, setSearchTerm] = useState('');
@@ -151,14 +177,24 @@ function App() {
   const handleSearch = () => {
     // You can implement your search functionality here
     console.log('Searching for:', searchTerm);
+    setSearchTerm("");
   };
+
+  // // interested button functionality 
+  // const [buttonText, setButtonText] = useState("I'm interested");
+  // const [buttonColor, setButtonColor] = useState("is-primary");
+
+  // const handleInterestedButtonClick = () => {
+  //   setButtonText("Owner notified!");
+  //   setButtonColor("is-success"); // Change the color to a success color
+  // };
 
   return (
     <div className="container">
       <h1 className="title">title</h1>
       <div className="field has-addons">
         <div className="control">
-          <input className="input" type="text" placeholder="Search" />
+          <input className="input" type="text" placeholder="Search" onChange={handleSearchChange} />
         </div>
         <div className="control">
           <button className="button is-primary ml-2" onClick={handleSearch}>
@@ -170,12 +206,16 @@ function App() {
       {/* <div className="container"> */}
 
       <div>
-        {products.map((product) => (
-          <div key={product.id} className="box">
-            <h2 className="title is-4">{product.name}</h2>
-            <p className="subtitle is-6">${product.price.toFixed(2)}</p>
-            {/* You can add more product details here */}
-            <button className="button is-primary">Add to Cart</button>
+        {supply.map((item) => (
+          <div key={item.id} className="box">
+            <h2 className="title is-4">{item.itemName}</h2>
+            <div className="">
+              <p className="is-6">${item.price}</p>
+              <p className="is-6">{`${formatDate(item.startDate)} - ${formatDate(item.endDate)}`}</p>
+              <p></p>
+            </div>
+
+            {/* <button className={`button ${buttonColor}`} onClick={handleInterestedButtonClick}/> */}
           </div>
         ))}
       </div>

@@ -202,74 +202,71 @@ function App() {
             onChange={handleSearchChange}
           />
         </div>
-        <div className="control">
+      </div>
+
+      
+      <div className="columns">
+  <div className="column">
+    <div className="field">
+      <label className="label">Start Date</label>
+      <div className="control">
+        <input
+          className="input"
+          type="date"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+        />
+      </div>
+    </div>
+  </div>
+  <div className="column">
+    <div className="field">
+      <label className="label">End Date</label>
+      <div className="control">
+        <input
+          className="input"
+          type="date"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+        />
+      </div>
+    </div>
+  </div>
+  <div className="column">
+    <div className="field">
+      <label className="label">Maximum Price</label>
+      <div className="control">
+        <input
+          className="input"
+          type="number"
+          value={maxPrice}
+          onChange={(e) => setMaxPrice(e.target.value)}
+        />
+      </div>
+    </div>
+  </div>
+  <div className="column">
+    <div className="field">
+    <label className="label has-text-white">`</label>
+      <div className="control">
+        <button
+          className="button is-primary"
+          onClick={handleSearch} // Add your submit function here
+        >
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+        {/* <div className="control">
           <button className="button is-primary ml-2" onClick={handleSearch}>
             Search
           </button>
-        </div>
-        <div className="control">
-          <button
-            className="button is-secondary ml-2"
-            onClick={toggleShowFilter}
-          >
-            {showFilter ? "Hide filters :(" : "Show filters!"}
-          </button>
-        </div>
-      </div>
-
-      {showFilter && (
-        <div className="columns">
-          <div className="column">
-            <div className="field">
-              <label className="label">Start Date</label>
-              <div className="control">
-                <input
-                  className="input"
-                  type="date"
-                  value={startDate}
-                  onChange={(e) => setStartDate(e.target.value)}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="column">
-            <div className="field">
-              <label className="label">End Date</label>
-              <div className="control">
-                <input
-                  className="input"
-                  type="date"
-                  value={endDate}
-                  onChange={(e) => setEndDate(e.target.value)}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="column">
-            <div className="field">
-              <label className="label">Maximum Price</label>
-              <div className="control">
-                <input
-                  className="input"
-                  type="number"
-                  value={maxPrice}
-                  onChange={(e) => setMaxPrice(e.target.value)}
-                />
-              </div>
-            </div>
-          </div>
-          <div className="column is-flex-align-self-flex-end">
-            <div className="field">
-              <label className="label has-text-white">`</label>
-              <div className="control">
-                <button className="button is-primary" onClick={handleSearch}>
-                  Apply Filters
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+        </div> */}
+      
 
       {/* <div className="container"> */}
 

@@ -165,7 +165,12 @@ function App() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ params: "hi" }),
+      body: JSON.stringify({
+        itemName: searchTerm,
+        startDate,
+        endDate,
+        maxPrice,
+      }),
     });
     const data = await response.json();
     setMatches(data["itemMatches"]);

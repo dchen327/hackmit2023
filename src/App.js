@@ -209,7 +209,6 @@ function App() {
         </div>
       </div>
 
-      
       <div className="columns">
   <div className="column">
     <div className="field">
@@ -266,12 +265,11 @@ function App() {
 </div>
 
 
-        {/* <div className="control">
+      {/* <div className="control">
           <button className="button is-primary ml-2" onClick={handleSearch}>
             Search
           </button>
         </div> */}
-      
 
       {/* <div className="container"> */}
 
@@ -304,7 +302,10 @@ function App() {
               {/* Right Column (Image) */}
               <div className="column is-one-third">
                 <figure className="image is-128x128">
-                  <img src={require("./tv.png")} alt="Item Image" />
+                  <img
+                    src={require("./images/" + item.pictures[0])}
+                    alt="Item Image"
+                  />
                 </figure>
               </div>
             </div>

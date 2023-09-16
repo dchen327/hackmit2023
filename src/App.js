@@ -196,7 +196,7 @@ function App() {
 
   return (
     <div className="container">
-      <h1 className="title">Summer Saver</h1>
+      <h1 className="title mt-4">Summer Saver</h1>
       <label className="label">Search by item name</label>
       <div className="field has-addons">
         <div className="control">
@@ -258,7 +258,7 @@ function App() {
           className="button is-primary"
           onClick={handleSearch} // Add your submit function here
         >
-          Submit
+          Search
         </button>
       </div>
     </div>
@@ -276,7 +276,8 @@ function App() {
       {/* <div className="container"> */}
 
       <div>
-        <h1 className="subtitle">Results for {searchTerm}</h1>
+        
+        { matches.length == 0 ? <p>No results found, did you mean 'fridge'?</p> : <h1 className="subtitle">Results for {searchTerm}</h1>}
         {matches.map((item, idx) => (
           <div key={`match{${idx}}`} className="box">
             <div className="columns">

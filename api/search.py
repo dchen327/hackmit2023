@@ -2,12 +2,39 @@ from http.server import BaseHTTPRequestHandler
 import json
 from datetime import datetime
 from faker import Faker
+import random
 
 fake = Faker()
 
+college_summer_items = [
+    'Fridge',
+    'Microwave',
+    'Television',
+    'Bicycle',
+    'Cooking Essentials',
+    'Desk',
+    'Chair',
+    'Air Conditioner',
+    'Laundry Supplies',
+    'Cleaning Supplies',
+    'Desk Lamp',
+    'Storage Bins',
+    'Ironing Board',
+    'Alarm Clock',
+    'Extension Cord',
+    'Toaster',
+    'Coffee Machine',
+    'Waffle Maker',
+    'Panini Press',
+    'Toolkit',
+    'Board Games',
+    'Nintendo Switch',
+    'Textbook'
+]
+
 def generate_fake_supply_info():
     supply_info = {
-        'itemName': fake.word(),  # Fake item name
+        'itemName': random.choice(college_summer_items),
         'startDate': fake.date_between(start_date='-120d', end_date='-110d'),  # Random date within the last 30 days and next 30 days
         'endDate': fake.date_between(start_date='-30d', end_date='-10d'),  # Random date between 31 and 90 days from now
         'price': 5 * fake.random_int(min=1, max=50),  # Random price between 10 and 200

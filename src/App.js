@@ -108,17 +108,6 @@ function App() {
   //   }
   // };
 
-  // const handleNewPuzzleClick = async () => {
-  //   setShowModal(false);
-  //   const response = await fetch("/api/index.py", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ params: "hi" }),
-  //   });
-  //   const data = await response.json();
-
   //   const newGameNums = data.gameNums.map((num) => new Fraction(num));
 
   //   setGameNums(newGameNums);
@@ -136,50 +125,60 @@ function App() {
   const jsDate = new Date(iso8601String);
   const supply = [
     {
-      'itemName': 'TV',
-      'startDate': jsDate,
-      'endDate': jsDate,
-      'price': 50,
-      'pictures': [],
-      'contact': 'test@college.edu',
-      'addlNotes': '',
+      itemName: "TV",
+      startDate: jsDate,
+      endDate: jsDate,
+      price: 50,
+      pictures: [],
+      contact: "test@college.edu",
+      addlNotes: "",
     },
     {
-      'itemName': 'TV',
-      'startDate': jsDate,
-      'endDate': jsDate,
-      'price': 50,
-      'pictures': [],
-      'contact': 'test@college.edu',
-      'addlNotes': '',
+      itemName: "TV",
+      startDate: jsDate,
+      endDate: jsDate,
+      price: 50,
+      pictures: [],
+      contact: "test@college.edu",
+      addlNotes: "",
     },
-  ]
+  ];
+
+  const [matches, setMatches] = useState([]);
+
   const products = [
-    { id: 1, name: 'Product 1', price: 19.99 },
-    { id: 2, name: 'Product 2', price: 29.99 },
-    { id: 3, name: 'Product 3', price: 39.99 },
+    { id: 1, name: "Product 1", price: 19.99 },
+    { id: 2, name: "Product 2", price: 29.99 },
+    { id: 3, name: "Product 3", price: 39.99 },
     // Add more products as needed
   ];
 
   function formatDate(inputDate) {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    const options = { year: "numeric", month: "long", day: "numeric" };
     return inputDate.toLocaleDateString(undefined, options);
   }
 
-  // search functionality 
-  const [searchTerm, setSearchTerm] = useState('');
+  // search functionality
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
-  const handleSearch = () => {
-    // You can implement your search functionality here
-    console.log('Searching for:', searchTerm);
+  const handleSearch = async () => {
     setSearchTerm("");
+    const response = await fetch("/api/search.py", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ params: "hi" }),
+    });
+    const data = await response.json();
+    setMatches(data["itemMatches"]);
   };
 
-  // // interested button functionality 
+  // // interested button functionality
   // const [buttonText, setButtonText] = useState("I'm interested");
   // const [buttonColor, setButtonColor] = useState("is-primary");
 
@@ -193,7 +192,12 @@ function App() {
       <h1 className="title">title</h1>
       <div className="field has-addons">
         <div className="control">
-          <input className="input" type="text" placeholder="Search" onChange={handleSearchChange} />
+          <input
+            className="input"
+            type="text"
+            placeholder="Search"
+            onChange={handleSearchChange}
+          />
         </div>
         <div className="control">
           <button className="button is-primary ml-2" onClick={handleSearch}>
@@ -205,12 +209,12 @@ function App() {
       {/* <div className="container"> */}
 
       <div>
-        {supply.map((item) => (
+        {matches.map((item) => (
           <div key={item.id} className="box">
             <h2 className="title is-4">{item.itemName}</h2>
             <div className="">
               <p className="is-6">${item.price}</p>
-              <p className="is-6">{`${formatDate(item.startDate)} - ${formatDate(item.endDate)}`}</p>
+              <p className="is-6">{`${item.startDate} - ${item.endDate}`}</p>
               <p></p>
             </div>
 
@@ -220,10 +224,7 @@ function App() {
       </div>
 
       {/* </div> */}
-
     </div>
-
-
   );
 }
 

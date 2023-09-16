@@ -55,8 +55,14 @@ class handler(BaseHTTPRequestHandler):
             'addlNotes': '',  # additional notes in text
         }
 
-        supply_info_list = [generate_fake_supply_info() for _ in range(10)]
-        print(supply_info_list[0])
+        supply_info_list = [generate_fake_supply_info() for _ in range(3)]
+
+        # Convert date objects to strings with the specified format
+        for supply_info in supply_info_list:
+            supply_info['startDate'] = supply_info['startDate'].strftime("%m/%d/%Y")
+            supply_info['endDate'] = supply_info['endDate'].strftime("%m/%d/%Y")
+            
+        return {'itemMatches': supply_info_list}
 
 if __name__ == '__main__':
     print(handler.search({}))

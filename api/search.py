@@ -33,12 +33,13 @@ college_summer_items = [
 ]
 
 def generate_fake_supply_info():
+    item_name = random.choice(college_summer_items)
     supply_info = {
-        'itemName': random.choice(college_summer_items),
+        'itemName': item_name,
         'startDate': fake.date_between(start_date=datetime(2023, 5, 1), end_date=datetime(2023, 5, 31)),  # Random date within the last 30 days and next 30 days
         'endDate': fake.date_between(start_date=datetime(2023, 8, 1), end_date=datetime(2023, 8, 27)),  # Random date between 31 and 90 days from now
         'price': 5 * fake.random_int(min=1, max=50),  # Random price between 10 and 200
-        'pictures': [fake.file_name(extension='jpg') for _ in range(fake.random_int(min=0, max=5))],  # Random list of picture filenames
+        'pictures': [item_name.lower().replace(' ', '') + '.jpg'],
         'contact': fake.email(),  # Fake email address
         'addlNotes': fake.text()  # Fake additional notes
     }
@@ -73,7 +74,7 @@ class handler(BaseHTTPRequestHandler):
 
     @staticmethod
     def search(params):
-        item_name = params['itemName'] or 'Television'
+        item_name = params['itemName']
         start_date = convert_date(params['startDate'] or '5/15/2023')
         end_date = convert_date(params['endDate'] or '8/15/2023')
         max_price = int(params['maxPrice'] or 500)
@@ -82,7 +83,7 @@ class handler(BaseHTTPRequestHandler):
         
         matches = []
         for supply_info in supply_info_list:
-            if supply_info['itemName'] == item_name and \
+            if (item_name == '' or supply_info['itemName'] == item_name) and \
                 supply_info['price'] <= max_price and \
                 abs((supply_info['startDate'] - start_date).days) <= 7 and \
                 abs((supply_info['endDate'] - end_date).days) <= 7:

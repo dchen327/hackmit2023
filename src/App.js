@@ -276,7 +276,8 @@ function App() {
       {/* <div className="container"> */}
 
       <div>
-        <h1 className="subtitle">Results for {searchTerm}</h1>
+        
+        { matches.length == 0 ? <p>No results found, did you mean 'fridge'?</p> : <h1 className="subtitle">Results for {searchTerm}</h1>}
         {matches.map((item, idx) => (
           <div key={`match{${idx}}`} className="box">
             <div className="columns">

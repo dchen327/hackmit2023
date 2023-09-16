@@ -142,7 +142,7 @@ function App() {
     },
   ];
 
-  const [matches, setMatches] = useState(supply);
+  const [matches, setMatches] = useState([]);
 
   const products = [
     { id: 1, name: "Product 1", price: 19.99 },
@@ -197,7 +197,10 @@ function App() {
   return (
     <div className="container">
       <h1 className="title mt-4">Summer Saver</h1>
-      <p className="mb-2">Looking for an item to buy for the summer? Search by title, date and price range!</p>
+      <p className="mb-2">
+        Looking for an item to buy for the summer? Search by title, date and
+        price range!
+      </p>
       <label className="label">Search by item name</label>
       <div className="field has-addons">
         <div className="control">
@@ -211,60 +214,59 @@ function App() {
       </div>
 
       <div className="columns">
-  <div className="column">
-    <div className="field">
-      <label className="label">Start Date</label>
-      <div className="control">
-        <input
-          className="input"
-          type="date"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-        />
+        <div className="column">
+          <div className="field">
+            <label className="label">Start Date</label>
+            <div className="control">
+              <input
+                className="input"
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="column">
+          <div className="field">
+            <label className="label">End Date</label>
+            <div className="control">
+              <input
+                className="input"
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="column">
+          <div className="field">
+            <label className="label">Maximum Price</label>
+            <div className="control">
+              <input
+                className="input"
+                type="number"
+                value={maxPrice}
+                onChange={(e) => setMaxPrice(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="column">
+          <div className="field">
+            <label className="label has-text-white">`</label>
+            <div className="control">
+              <button
+                className="button is-primary"
+                onClick={handleSearch} // Add your submit function here
+              >
+                Search
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <div className="column">
-    <div className="field">
-      <label className="label">End Date</label>
-      <div className="control">
-        <input
-          className="input"
-          type="date"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-        />
-      </div>
-    </div>
-  </div>
-  <div className="column">
-    <div className="field">
-      <label className="label">Maximum Price</label>
-      <div className="control">
-        <input
-          className="input"
-          type="number"
-          value={maxPrice}
-          onChange={(e) => setMaxPrice(e.target.value)}
-        />
-      </div>
-    </div>
-  </div>
-  <div className="column">
-    <div className="field">
-    <label className="label has-text-white">`</label>
-      <div className="control">
-        <button
-          className="button is-primary"
-          onClick={handleSearch} // Add your submit function here
-        >
-          Search
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
 
       {/* <div className="control">
           <button className="button is-primary ml-2" onClick={handleSearch}>
@@ -275,8 +277,11 @@ function App() {
       {/* <div className="container"> */}
 
       <div>
-        
-        { matches.length == 0 ? <p>No results found, did you mean 'fridge'?</p> : <h1 className="subtitle">Results:</h1>}
+        {matches.length == 0 ? (
+          <p>No results found, did you mean 'fridge'?</p>
+        ) : (
+          <h1 className="subtitle">Results:</h1>
+        )}
         {matches.map((item, idx) => (
           <div key={`match{${idx}}`} className="box">
             <div className="columns">
@@ -303,10 +308,10 @@ function App() {
               {/* Right Column (Image) */}
               <div className="column is-one-third">
                 <figure className="image is-128x128">
-                  {/* <img
+                  <img
                     src={require("./images/" + item.pictures[0])}
                     alt="Item Image"
-                  /> */}
+                  />
                 </figure>
               </div>
             </div>

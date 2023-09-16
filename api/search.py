@@ -79,17 +79,20 @@ class handler(BaseHTTPRequestHandler):
         end_date = convert_date(params['endDate'] or '8/15/2023')
         max_price = int(params['maxPrice'] or 500)
 
-        supply_info_list = [generate_fake_supply_info() for _ in range(100)]
+        with open('api/college_supplies.json', 'r') as json_file:
+            supply_info_list = json.load(json_file)
+            for supply_info in supply_info_list:
+                supply_info['startDate'] = datetime.strptime(supply_info['startDate'], "%m/%d/%Y").date()
+                supply_info['endDate'] = datetime.strptime(supply_info['endDate'], "%m/%d/%Y").date()
         
         matches = []
         for supply_info in supply_info_list:
-            if (item_name == '' or supply_info['itemName'] == item_name) and \
+            if (item_name in ['', supply_info['itemName']]) and \
                 supply_info['price'] <= max_price and \
                 abs((supply_info['startDate'] - start_date).days) <= 7 and \
                 abs((supply_info['endDate'] - end_date).days) <= 7:
                 matches.append(supply_info)
             
-        print(matches)
         return {'itemMatches': convert_matches(matches)}
 
 if __name__ == '__main__':

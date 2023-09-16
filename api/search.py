@@ -33,7 +33,7 @@ college_summer_items = [
 ]
 
 def generate_fake_supply_info(item_name=None, start_date=None, end_date=None, price=None):
-    pictures = ['no_image.jpg']
+    pictures = ['noimage.jpg']
     if item_name is None:
         item_name = random.choice(college_summer_items)
         pictures = [item_name.lower().replace(' ', '') + '.jpg']

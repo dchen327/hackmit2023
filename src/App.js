@@ -1,3 +1,5 @@
+import "bulma/css/bulma.min.css";
+
 import { useState, useEffect, useRef } from "react";
 import Fraction from "fraction.js";
 

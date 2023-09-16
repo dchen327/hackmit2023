@@ -127,7 +127,7 @@ function App() {
       startDate: "09/01/2023",
       endDate: "10/01/2023",
       price: 50,
-      pictures: [],
+      pictures: ["./images/bike.jpg"],
       contact: "test@college.edu",
       addlNotes: "Here are some notes",
     },
@@ -136,13 +136,13 @@ function App() {
       startDate: "10/01/2023",
       endDate: "11/01/2023",
       price: 50,
-      pictures: [],
+      pictures: ["./images/fridge.jpg"],
       contact: "test@college.edu",
       addlNotes: "",
     },
   ];
 
-  const [matches, setMatches] = useState([]);
+  const [matches, setMatches] = useState(supply);
 
   const products = [
     { id: 1, name: "Product 1", price: 19.99 },
@@ -175,6 +175,8 @@ function App() {
     const data = await response.json();
     setMatches(data["itemMatches"]);
   };
+
+  // const picUrl = require(supply[1].pictures[0])
 
   // search filters
   const [startDate, setStartDate] = useState("");
@@ -303,9 +305,9 @@ function App() {
               </div>
               {/* Right Column (Image) */}
               <div className="column is-one-third">
-                <figure className="image is-128x128">
-                  <img src={require("./tv.png")} alt="Item Image" />
-                </figure>
+              <figure className="image is-128x128">
+                <img src={item.pictures[0]} alt={item.itemName} />
+            </figure>
               </div>
             </div>
           </div>

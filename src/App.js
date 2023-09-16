@@ -209,69 +209,66 @@ function App() {
         </div>
       </div>
 
-      
       <div className="columns">
-  <div className="column">
-    <div className="field">
-      <label className="label">Start Date</label>
-      <div className="control">
-        <input
-          className="input"
-          type="date"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-        />
+        <div className="column">
+          <div className="field">
+            <label className="label">Start Date</label>
+            <div className="control">
+              <input
+                className="input"
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="column">
+          <div className="field">
+            <label className="label">End Date</label>
+            <div className="control">
+              <input
+                className="input"
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="column">
+          <div className="field">
+            <label className="label">Maximum Price</label>
+            <div className="control">
+              <input
+                className="input"
+                type="number"
+                value={maxPrice}
+                onChange={(e) => setMaxPrice(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+        <div className="column">
+          <div className="field">
+            <label className="label has-text-white">`</label>
+            <div className="control">
+              <button
+                className="button is-primary"
+                onClick={handleSearch} // Add your submit function here
+              >
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-  <div className="column">
-    <div className="field">
-      <label className="label">End Date</label>
-      <div className="control">
-        <input
-          className="input"
-          type="date"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
-        />
-      </div>
-    </div>
-  </div>
-  <div className="column">
-    <div className="field">
-      <label className="label">Maximum Price</label>
-      <div className="control">
-        <input
-          className="input"
-          type="number"
-          value={maxPrice}
-          onChange={(e) => setMaxPrice(e.target.value)}
-        />
-      </div>
-    </div>
-  </div>
-  <div className="column">
-    <div className="field">
-    <label className="label has-text-white">`</label>
-      <div className="control">
-        <button
-          className="button is-primary"
-          onClick={handleSearch} // Add your submit function here
-        >
-          Submit
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
 
-
-        {/* <div className="control">
+      {/* <div className="control">
           <button className="button is-primary ml-2" onClick={handleSearch}>
             Search
           </button>
         </div> */}
-      
 
       {/* <div className="container"> */}
 
@@ -303,7 +300,10 @@ function App() {
               {/* Right Column (Image) */}
               <div className="column is-one-third">
                 <figure className="image is-128x128">
-                  <img src={require("./tv.png")} alt="Item Image" />
+                  <img
+                    src={require("./images/" + item.pictures[0])}
+                    alt="Item Image"
+                  />
                 </figure>
               </div>
             </div>

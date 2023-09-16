@@ -132,22 +132,20 @@ function App() {
   //   // TODO: Implement hint functionality
   //   console.log("Hint clicked");
   // };
-  const iso8601String = "2023-09-16T12:30:00";
-  const jsDate = new Date(iso8601String);
   const supply = [
     {
       'itemName': 'TV',
-      'startDate': jsDate,
-      'endDate': jsDate,
+      'startDate': "09/01/2023",
+      'endDate': "10/01/2023",
       'price': 50,
       'pictures': [],
       'contact': 'test@college.edu',
-      'addlNotes': '',
+      'addlNotes': 'Here are some notes',
     },
     {
       'itemName': 'TV',
-      'startDate': jsDate,
-      'endDate': jsDate,
+      'startDate': "10/01/2023",
+      'endDate': "11/01/2023",
       'price': 50,
       'pictures': [],
       'contact': 'test@college.edu',
@@ -161,11 +159,6 @@ function App() {
     // Add more products as needed
   ];
 
-  function formatDate(inputDate) {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return inputDate.toLocaleDateString(undefined, options);
-  }
-
   // search functionality 
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -176,8 +169,18 @@ function App() {
   const handleSearch = () => {
     // You can implement your search functionality here
     console.log('Searching for:', searchTerm);
-    setSearchTerm("");
   };
+
+  // search filters
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
+  const [showFilter, setShowFilter] = useState(false);
+
+  const toggleShowFilter = () => {
+    setShowFilter(!showFilter);
+  }
+
 
   // // interested button functionality 
   // const [buttonText, setButtonText] = useState("I'm interested");
@@ -189,9 +192,11 @@ function App() {
   // };
 
   return (
-    <div className="container">
-      <h1 className="title">title</h1>
+    <div className="container" >
+      <h1 className="title">Summer Saver</h1>
+      <label className="label">Search by item name</label>
       <div className="field has-addons">
+
         <div className="control">
           <input className="input" type="text" placeholder="Search" onChange={handleSearchChange} />
         </div>
@@ -200,22 +205,101 @@ function App() {
             Search
           </button>
         </div>
+        <div className="control">
+          <button className="button is-secondary ml-2" onClick={toggleShowFilter}>
+            {showFilter ? "Hide filters :(" : "Show filters!"}
+          </button>
+        </div>
       </div>
+
+      {showFilter && (
+        <div className="columns">
+          <div className="column">
+            <div className="field">
+              <label className="label">Start Date</label>
+              <div className="control">
+                <input
+                  className="input"
+                  type="date"
+                  value={startDate}
+                  onChange={e => setStartDate(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="column">
+            <div className="field">
+              <label className="label">End Date</label>
+              <div className="control">
+                <input
+                  className="input"
+                  type="date"
+                  value={endDate}
+                  onChange={e => setEndDate(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="column">
+            <div className="field">
+              <label className="label">Maximum Price</label>
+              <div className="control">
+                <input
+                  className="input"
+                  type="number"
+                  value={maxPrice}
+                  onChange={e => setMaxPrice(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+          <div className="column is-flex-align-self-flex-end">
+            <div className="field">
+            <label className="label has-text-white">`</label>
+              <div className="control">
+                <button
+                  className="button is-primary"
+                  onClick={handleSearch}
+                >
+                  Apply Filters
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+
+
 
       {/* <div className="container"> */}
 
       <div>
+        <h1 className="subtitle">Results for {searchTerm}</h1>
         {supply.map((item) => (
           <div key={item.id} className="box">
-            <h2 className="title is-4">{item.itemName}</h2>
-            <div className="">
-              <p className="is-6">${item.price}</p>
-              <p className="is-6">{`${formatDate(item.startDate)} - ${formatDate(item.endDate)}`}</p>
-              <p></p>
-            </div>
+            <div className="columns">
+              {/* Left Column (Content) */}
+              <div className="column">
+                <h2 className="title is-4">{item.itemName}</h2>
+                <div className="">
+                  <p className="is-6"><strong>Price: </strong> ${item.price}</p>
+                  <p className="is-6"><strong>Dates Offered: </strong> {`${item.startDate} - ${item.endDate}`}</p>
+                  <p className="is-6"><strong>Notes: </strong> {item.addlNotes}</p>
+                  <p className="is-6"><strong>Contact: </strong> {item.contact}</p>
+                  <p></p>
+                </div>
+              </div>
+              {/* Right Column (Image) */}
+              <div className="column is-one-third">
+                <figure class="image is-128x128">
+                  <img src={require('./tv.png')} alt="Item Image" />
+                </figure>
 
-            {/* <button className={`button ${buttonColor}`} onClick={handleInterestedButtonClick}/> */}
+              </div>
+            </div>
           </div>
+
         ))}
       </div>
 

@@ -206,7 +206,6 @@ function App() {
           <Link to='/post'> 
           <button
             className="button is-primary"
-            // onClick={() => window.location.href = '/post'}
             >
           Add your item
           </button>

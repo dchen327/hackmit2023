@@ -1,6 +1,7 @@
 import "bulma/css/bulma.min.css";
 import React from 'react';
 import { useState, useEffect, useRef } from "react";
+import { Link } from 'react-router-dom';
 
 function PostPage() {
 
@@ -132,30 +133,15 @@ function PostPage() {
         <div className="field">
             <label className="label has-text-white">`</label>
             <div className="control">
+            <Link to='/'> 
               <button
                 className="button is-primary"
                 onClick={handlePost} // Add your submit function here
               >
                 Post
               </button>
+              </Link>
             </div>
-      {/* <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          value={userData.name}
-          onChange={handleChange}
-          placeholder="Name"
-        />
-        <input
-          type="email"
-          name="email"
-          value={userData.email}
-          onChange={handleChange}
-          placeholder="Email"
-        />
-        <button type="submit">Submit</button>
-      </form> */}
     </div>
     </div>
     </div>

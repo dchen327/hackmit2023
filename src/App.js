@@ -1,6 +1,7 @@
 import "bulma/css/bulma.min.css";
-
 import { useState, useEffect, useRef } from "react";
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+
 
 function App() {
   // const [selectedNumberIdx, setSelectedNumberIdx] = useState(null);
@@ -197,6 +198,23 @@ function App() {
   return (
     <div className="container">
       <h1 className="title mt-4">Summer Saver</h1>
+      <div>
+      <div className="container"> {/* Add this container */}
+        <p>looking to loan or sell an item for the summer? Post it here!</p>
+        <label className="label has-text-white">`</label>
+        <div className="control">
+          <Link to='/post'> 
+          <button
+            className="button is-primary"
+            >
+          Add your item
+          </button>
+            </Link>
+        </div>
+      </div>
+      <br></br>
+    </div>
+  
       <p className="mb-2">
         Looking for an item to buy for the summer? Search by title, date and
         price range!

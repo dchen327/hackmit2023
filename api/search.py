@@ -84,7 +84,7 @@ def generate_fake_supply_info(item_name=None, start_date=None, end_date=None, pr
     return supply_info
 
 def convert_date(date_str):
-    return datetime.strptime(date_str, "%m/%d/%Y").date()
+    return datetime.strptime(date_str, "%Y-%m-%d").date()
 
 def convert_matches(matches):
     # Convert date objects to strings with the specified format
@@ -113,8 +113,8 @@ class handler(BaseHTTPRequestHandler):
     @staticmethod
     def search(params):
         item_name = params['itemName']
-        start_date = convert_date(params['startDate'] or '5/15/2023')
-        end_date = convert_date(params['endDate'] or '8/15/2023')
+        start_date = convert_date(params['startDate'] or '2023-05-15')
+        end_date = convert_date(params['endDate'] or '2023-08-15')
         max_price = int(params['maxPrice'] or 500)
 
         with open('api/college_supplies.json', 'r') as json_file:

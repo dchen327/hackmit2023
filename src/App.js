@@ -1,6 +1,7 @@
 import "bulma/css/bulma.min.css";
 import { useState, useEffect, useRef } from "react";
-import Routes from './Routes';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+
 
 function App() {
   // const [selectedNumberIdx, setSelectedNumberIdx] = useState(null);
@@ -202,12 +203,14 @@ function App() {
         <p>looking to loan or sell an item for the summer? Post it here!</p>
         <label className="label has-text-white">`</label>
         <div className="control">
+          <Link to='/post'> 
           <button
             className="button is-primary"
-            onClick={() => window.location.href = '/post'}
-          >
-            Add your item
+            // onClick={() => window.location.href = '/post'}
+            >
+          Add your item
           </button>
+            </Link>
         </div>
       </div>
       <br></br>

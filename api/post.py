@@ -14,11 +14,33 @@ class handler(BaseHTTPRequestHandler):
         puzzle_info = self.create_puzzle(params)
         self.wfile.write(json.dumps(puzzle_info).encode())
 
-    supply_info_list = []
+    real_supply_info_list = []
 
     def post(params):
-        FILE_NAME = 'real_college_supplies.json'
-        # append data to json file 
-        with open(FILE_NAME, 'a') as json_file:
-            json.dump(real_supply_info_list, json_file)
+        title = params['title']
+        description = params['description']
+        startDate = params['startDate']
+        endDate = params['endDate']
+        price = params['price']
+        contact = params['contact']
+        fakedesc = " "
+
+        FILE_NAME = 'college_supplies.json'
+        with open(FILE_NAME, 'r') as json_file:
+            existing_data = json.load(json_file)
+        supply_info = {
+            'itemName': title, 
+            'description': " ",
+            'startDate': startDate,
+            'endDate': endDate,
+            'price': price,
+            'contact': contact,
+            'addlNotes': description
+            }
+        
+        # append data to existing data
+        existing_data.append(supply_info)
+
+        with open(FILE_NAME, 'w') as json_file:
+            json.dump(existing_data, json_file)
         return True

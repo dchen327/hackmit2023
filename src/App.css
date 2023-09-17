@@ -28,11 +28,6 @@
   color: #61dafb;
 }
 
-.container {
-  display: flex;
-  align-items: center; /* Vertically center the items */
-  gap: 10px; /* Add spacing between the text and the button */
-}
 
 @keyframes App-logo-spin {
   from {

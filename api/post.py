@@ -17,12 +17,12 @@ class handler(BaseHTTPRequestHandler):
     real_supply_info_list = []
 
     def post(self, params):
-        title = params['title']
-        description = params['description']
-        startDate = params['startDate']
-        endDate = params['endDate']
-        price = params['price']
-        contact = params['contact']
+        title = params['title'].strip()
+        description = params['description'].strip()
+        startDate = params['startDate'].strip()
+        endDate = params['endDate'].strip()
+        price = params['price'].strip()
+        contact = params['contact'].strip()
 
         FILE_NAME = 'college_supplies.json'
         with open(FILE_NAME, 'r') as json_file:
